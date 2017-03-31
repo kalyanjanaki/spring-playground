@@ -37,4 +37,14 @@ public class MathServiceTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().string("6"));
     }
+
+    @Test
+    public void testMathVolume() throws Exception{
+        RequestBuilder request = MockMvcRequestBuilders.patch("/math/volume/3/4/5");
+
+        this.mvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().string("The volume of a 3x4x5 rectangle is 60"));
+
+    }
 }

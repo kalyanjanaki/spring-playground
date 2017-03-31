@@ -1,10 +1,7 @@
 package com.example;
 
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,5 +44,11 @@ public class MathService {
             result  += i;
         }
         return Integer.toString(result);
+    }
+
+    @RequestMapping("/math/volume/{l}/{w}/{h}")
+    public String  returnVolume(@PathVariable("l") int length,@PathVariable("w") int width,@PathVariable("h") int height){
+
+        return String.format("The volume of a %dx%dx%d rectangle is %d",length,width,height,(length*width*height));
     }
 }
