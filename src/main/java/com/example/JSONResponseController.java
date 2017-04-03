@@ -1,7 +1,9 @@
 package com.example;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.google.gson.JsonObject;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -133,5 +135,29 @@ public class JSONResponseController {
         flights.add(flight2);
 
         return flights;
+    }
+
+    public static  class Tickets{
+        List<Flight.Ticket> tickets;
+
+        public List<Flight.Ticket> getTickets() {
+            return tickets;
+        }
+
+        public void setTickets(List<Flight.Ticket> tickets) {
+            this.tickets = tickets;
+        }
+    }
+
+    @GetMapping("/tickets/total")
+    public Object getTicketTotal(@RequestBody Tickets input){
+        int result = 0;
+        for(Flight.Ticket tic : input.getTickets()){
+            result += tic.getPrice();
+        }
+
+        JsonObject obj = new JsonObject();
+        obj.addProperty("result",Integer.toString(result));
+        return obj;
     }
 }
