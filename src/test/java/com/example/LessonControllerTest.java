@@ -18,7 +18,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
+import org.springframework.http.MediaType;
 /**
  * Created by trainer20 on 4/9/17.
  */
@@ -38,7 +38,7 @@ public class LessonControllerTest {
     @Rollback
     public void testGetLesson() throws Exception{
 
-        MockHttpServletRequestBuilder request = get("/lessons/5");
+        MockHttpServletRequestBuilder request = get("/lessons/5").contentType(MediaType.APPLICATION_JSON);
         this.mvc.perform(request).andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", instanceOf(Number.class) ));
     }
