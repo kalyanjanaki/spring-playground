@@ -1,5 +1,8 @@
 package com.example;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,5 +44,21 @@ public class LessonControllerTest {
         MockHttpServletRequestBuilder request = get("/lessons/5").contentType(MediaType.APPLICATION_JSON);
         this.mvc.perform(request).andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", instanceOf(Number.class) ));
+    }
+
+    @Test
+    @Transactional
+    @Rollback
+    public void testPutLesson() throws Exception{
+        JsonObject lesson = new JsonObject();
+        lesson.addProperty("id",10);
+        lesson.addProperty("title","SQL");
+
+        Gson builder = new GsonBuilder().create();
+        String jsonString = builder.toJson(lesson);
+
+        MockHttpServletRequestBuilder request = post("/lessons").contentType(MediaType.APPLICATION_JSON).content(jsonString);
+        this.mvc.perform(request).andExpect(status().isOk());
+
     }
 }
