@@ -1,5 +1,6 @@
 package com.example;
 
+import com.example.config.WordCount;
 import com.example.utils.WordCounter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,7 +13,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static org.hamcrest.core.IsInstanceOf.instanceOf;
+import java.util.ArrayList;
+
 import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -32,7 +34,10 @@ public class WordCounterTest {
 
     @Test
     public void testPlainWordCount(){
-        WordCounter internalCounter = new WordCounter();
+        WordCount config = new WordCount();
+        config.setCaseSensitve(false);
+        config.setWords(new ArrayList<String>());
+        WordCounter internalCounter = new WordCounter(config);
         Long answer = internalCounter.getCounts("how now get").get("now").longValue();
         assertEquals(new Long(answer),new Long(1));
     }
