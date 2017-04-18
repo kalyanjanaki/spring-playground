@@ -10,6 +10,10 @@ import org.springframework.web.client.RestTemplate;
 public class OMDBService {
     private final RestTemplate restTemplate = new RestTemplate();
 
+    public RestTemplate getRestTemplate() {
+        return restTemplate;
+    }
+
     public String getOMDB(String queryParam){
         return restTemplate.getForObject("http://www.omdbapi.com/?s={param}",String.class,queryParam);
     }
