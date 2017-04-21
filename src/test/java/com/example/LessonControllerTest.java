@@ -27,7 +27,7 @@ import org.springframework.http.MediaType;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(secure = false)
 public class LessonControllerTest {
 
     @Autowired
