@@ -1,6 +1,7 @@
 package com.example;
 
 import com.example.entities.Lesson;
+import com.example.entities.LessonRepository;
 import org.springframework.web.bind.annotation.*;
 
 /**
