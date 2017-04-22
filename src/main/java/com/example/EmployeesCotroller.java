@@ -4,6 +4,8 @@ import com.example.entities.Employee;
 import com.example.entities.EmployeeRepository;
 import com.example.entities.Views;
 import com.fasterxml.jackson.annotation.JsonView;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,5 +30,10 @@ public class EmployeesCotroller {
     @JsonView(Views.NonSalaryView.class)
     public Iterable<Employee>  getEmployees(){
         return this.employeeRepository.findAll();
+    }
+
+    @GetMapping("/me")
+    public Employee getMe(@AuthenticationPrincipal Employee employee) {
+        return employee;
     }
 }

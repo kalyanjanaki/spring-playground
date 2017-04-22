@@ -15,6 +15,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    EmployeeDetailsService employeeDetailsService;
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
@@ -25,12 +27,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().anyRequest().authenticated();
     }
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .inMemoryAuthentication()
-                .withUser("employee").password("my-employee-password").roles("EMPLOYEE")
-                .and()
-                .withUser("boss").password("my-boss-password").roles("MANAGER");
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(employeeDetailsService);
     }
 }
